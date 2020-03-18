@@ -16,6 +16,6 @@ phases:
     commands: 
       - docker push 666054393290.dkr.ecr.ap-southeast-1.amazonaws.com/php-repo  
       - printf '{"ImageURI":"%s"}' 666054393290.dkr.ecr.ap-southeast-1.amazonaws.com/php-repo:simple-php > imageDetail.json
-  artifacts:
-    files:
-      - imageDetail.json
+artifacts:
+  files:
+    - imageDetail.json
