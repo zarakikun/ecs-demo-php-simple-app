@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  pre_build:
+    commands:
+    - $(aws ecr get-login --no-include-email --region ap-southeast-1) 
+   build:
+    commands:
+    - docker build -t simple-php .
+    - docker tag simple-php 666054393290.dkr.ecr.ap-southeast-1.amazonaws.com/php-repo
+  post_build:
+    commands: 
+    - docker push 666054393290.dkr.ecr.ap-southeast-1.amazonaws.com/php-repo  
+    - printf '{"ImageURI":"%s"}' 666054393290.dkr.ecr.ap-southeast-1.amazonaws.com/php-repo:simple-php > imageDetail.json
+  artifacts:
+    files:
+      - imageDetail.json
